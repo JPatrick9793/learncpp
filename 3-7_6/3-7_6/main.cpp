@@ -11,9 +11,14 @@
 
 int isGreaterThan2s(int x, int y)
 {
-    //if x / 2^y is greater than or equal to 1, print "1"
-    std::cout << ((x / pow(2, y) >= 1) ? 1 : 0);
-    return x / pow(2, y);
+    //if x - 2^y is greater than or equal to 1, print "1" and return difference
+    if (x >= pow(2, y)) {
+        std::cout << 1;
+        return (x - pow(2,y));
+    } else {
+        std::cout << 0;
+        return x;
+    }
 }
 
 
@@ -25,25 +30,21 @@ int main()
     int x;
     std::cin >> x;
     
-    //"y" is power of 2
+    std::cout << "\nThis is how to write " << x << " in binary:\n";
+    //initialize y to start at power of 8:
     int y(8);
     
+    //create while loop to iterate through powers of 2:
     while (y >= 0) {
-        //print corresponding binary #
-        isGreaterThan2s(x, y);
-        
-        //create if loop to evaluate new value for x
-        if (isGreaterThan2s(x, y) == 1) {
-            x = x % static_cast<int>(x / pow(2, y));
-        }
-        
-        //re-assign the remainder to be the value of x
-        //x = x % static_cast<int>(x / pow(2, y));
-        
-        //decrement counter
+        x = isGreaterThan2s(x, y);
         y -= 1;
+         //print space between 4th and 5th chars
+        if (y == 4) {
+            std::cout << " ";
+        }
     }
-    std::cout << std::endl;
+
+    std::cout << "\n\n";
     
     return 0;
 }
